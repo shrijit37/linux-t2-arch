@@ -6,7 +6,7 @@
 
 pkgbase=linux-t2
 pkgver=7.2.6.arch2
-pkgrel=3
+pkgrel=4
 pkgdesc='Linux for T2 Macs'
 url='https://github.com/archlinux/linux'
 arch=(
