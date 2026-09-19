@@ -105,14 +105,6 @@ prepare() {
     patch -Np1 < "../$src"
   done
 
-  # Custom: BCM4377 D3-ACK quirk (apply last; only touches brcmfmac/pcie.c)
-  if [ -f "../d3-quirk.patch" ]; then
-    echo "Applying d3-quirk.patch (BCM4377 D3-ACK quirk for T2)..."
-    patch -Np1 < "../d3-quirk.patch"
-  else
-    echo "WARNING: d3-quirk.patch missing; continuing without it"
-  fi
-
   echo "Setting config..."
   cp ../config.$CARCH .config
   cat $srcdir/patches/extra_config >> .config
