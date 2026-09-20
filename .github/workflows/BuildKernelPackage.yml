@@ -67,8 +67,9 @@ jobs:
          draft: ${{ contains(github.event.head_commit.message, '[draft]') }}
          prerelease: ${{ contains(github.event.head_commit.message, '[prerel]') }}
          body: |
-           This release features Renako Amaori from There's No Freaking Way I'll Be Your Lover! Unless..., celebrating announcement of anime adaptation!
-           Every major release will feature new anime/manga and minor releases will have different characters!
+           Fork release — linux-t2 with the BCM4377 D3-ACK suspend quirk (T2 Macs: MacBookPro16,3 / A2289 · MacBookPro15,4 / A2159 · MacBookAir9,1 / A2179). Everything upstream linux-t2 is, plus a working system suspend on affected boards.
+
+           This release features Renako Amaori from There's No Freaking Way I'll Be Your Lover! Unless... — every major release features a new anime/manga, minor releases different characters!
            Install packages with `sudo pacman -U <file>`, you can use urls or file paths.
       env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

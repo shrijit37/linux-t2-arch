@@ -102,8 +102,19 @@ prepare() {
     src="${src%.zst}"
     [[ $src = *.patch ]] || continue
     echo "Applying patch $src..."
-    patch -Np1 < "../$src"
+    patch -Np1 -f < "../$src"
   done
+
+  # Guard: d3-quirk.patch must have landed. patch -Np1 -f tolerates an
+  # already-applied keccak patch, but if a kernel bump context-drifts the
+  # quirk's target file (brcmfmac/pcie.c) the apply FAILS above and the
+  # build dies loudly. Assert the quirk's sentinel so a silently-missing
+  # quirk (renamed/absorbed patch) can never ship a stock kernel by accident.
+  if ! grep -q "brcmf_pcie_quirk_no_d3_ack" drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c; then
+    echo "FATAL: d3-quirk.patch did not land (brcmfmac/pcie.c missing brcmf_pcie_quirk_no_d3_ack)."
+    echo "The kernel tree changed; resolve the quirk before cutting a release."
+    exit 1
+  fi
 
   echo "Setting config..."
   cp ../config.$CARCH .config
